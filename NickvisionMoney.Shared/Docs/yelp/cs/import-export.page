@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" id="import-export" its:version="2.0" xml:lang="cs">
+<info>
+	<link type="guide" xref="index"/>
+	<title type="link">Import/export 📤</title>
+	<credit type="author copyright">
+		<name>Fyodor Sobolev</name>
+		<years its:translate="no">2023</years>
+	</credit>
+	<credit type="publisher copyright">
+		<name>Nicholas Logozzo</name>
+		<years its:translate="no">2023</years>
+	</credit>
+	<license href="http://creativecommons.org/licenses/by/4.0/" its:translate="no"><p>Creative Commons Attribution 4.0 International License</p></license>
+
+    <mal:credit xmlns:mal="http://projectmallard.org/1.0/" type="translator copyright">
+      <mal:name>Jonáš Loskot</mal:name>
+      <mal:email>jonas.loskot@pm.me</mal:email>
+      <mal:years>2023</mal:years>
+    </mal:credit>
+  </info>
+
+<title>Import/export</title>
+<div>
+	<title>Formáty importu</title>
+	<list>
+		<item>
+			<p its:translate="no">Open Financial Exchange (<file>.ofx</file>)</p>
+			<p>Data by měla být ve formátu <em>RRRRMMDD</em>.</p>
+		</item>
+		<item>
+			<p its:translate="no">Quicken Interchange Format (<file>.qif</file>)</p>
+			<p>Data by měla být v anglickém (americkém) formátu (<em>MM/DD/RRRR</em>).</p>
+		</item>
+		<item>
+			<p its:translate="no">Denaro CSV (<file>.csv</file>)</p>
+			<p>❗ Formát CSV je sice běžný a některé banky umožňují svým uživatelům exportovat informace ve formátu CSV, ale tyto soubory jsou ve skutečnosti tabulky, které mohou obsahovat libovolná data. Import souboru CSV vytvořeného v jiném programu selže, protože jeho data nebudou kompatibilní s tím, co se aplikace <app>Denaro</app> snaží ze souboru získat. Účelem importu/exportu CSV je poskytnout způsob, jak přidávat data do účtu pomocí externích programů, jako jsou textové editory a kancelářské balíky. Import přidá pouze nové transakce, aniž by přepsal ty stávající. Pokud chcete soubor CSV vytvořit ručně, toto je hlavička, která obsahuje všechny sloupce, které aplikace <app>Denaro</app> očekává, že najde:</p>
+			<p its:translate="no"><code>ID;Date;Description;Type;RepeatInterval;RepeatFrom;RepeatEndDate;Amount;RGBA;UseGroupColor;Group;GroupName;GroupDescription;GroupRGBA</code></p>
+			<list>
+				<item>
+					<title its:translate="no">ID</title>
+					<p>ID transakce, mělo by být pro daný účet jedinečné. ID začínají číslem 1.</p>
+				</item>
+				<item>
+					<title its:translate="no">Date</title>
+					<p>Datum transakce (nebo datum zahájení v případě opakované transakce) by mělo být v anglickém (americkém) formátu (<em>MM/DD/RRRR</em>).</p>
+				</item>
+				<item>
+					<title its:translate="no">Description</title>
+					<p>Popis transakce, může obsahovat libovolné znaky kromě středníku.</p>
+				</item>
+				<item>
+					<title its:translate="no">Type</title>
+					<p>Typ transakce: 0 pro příjem, 1 pro výdaj.</p>
+				</item>
+				<item>
+					<title its:translate="no">RepeatInterval</title>
+					<p>Číslo představující interval opakování transakce:</p>
+					<p>0 - Nikdy</p>
+					<p>1 - Denně</p>
+					<p>2 - Týdně</p>
+					<p>7 - Dvakrát týdně</p>
+					<p>3 - Měsíčně</p>
+					<p>4 - Čtvrtletně</p>
+					<p>5 - Ročně</p>
+					<p>6 - Dvakrát ročně</p>
+					<p>Podrobnosti o opakovaných transakcích naleznete v části <em>Interval opakování</em> na stránce <link xref="transaction">transakce</link>.</p>
+				</item>
+				<item>
+					<title its:translate="no">RepeatFrom</title>
+					<p>Mělo by to být buď ID zdrojové transakce nebo 0, pokud se jedná o zdrojovou transakci, nebo -1, pokud se nejedná o opakovanou transakci.</p>
+				</item>
+				<item>
+					<title its:translate="no">RepeatEndDate</title>
+					<p>Datum ukončení opakované transakce by mělo být v anglickém (americkém) formátu (<em>MM/DD/RRRR</em>). Pokud se nejedná o opakovanou transakci, ponechte jej prázdný.</p>
+				</item>
+				<item>
+					<title its:translate="no">Amount</title>
+					<p>Částka transakce v anglickém (americkém) formátu (<em>123,456.78</em>).</p>
+				</item>
+				<item>
+					<title its:translate="no">RGBA</title>
+					<p>Barva transakce, by měla být ve formátu <em>rgb(R,G,B)</em>, kde <em>R</em>, <em>G</em> a <em>B</em> jsou celá čísla v rozsahu 0 až 255.</p>
+				</item>
+				<item>
+					<title its:translate="no">UseGroupColor</title>
+					<p>Zda má transakce používat skupinovou barvu: 0 — ne, 1 — ano.</p>
+				</item>
+				<item>
+					<title its:translate="no">Group</title>
+					<p>ID skupiny transakce. ID začíná číslem 1. U neseskupených transakcí by mělo být -1 (ne 0, to je nesprávná hodnota pro ID skupiny).</p>
+				</item>
+				<item>
+					<title its:translate="no">GroupName</title>
+					<p>Název skupiny transakce, měl by odpovídat ID skupiny. Může obsahovat libovolné znaky kromě středníku. Pro transakce bez skupiny jej ponechte prázdný, v ostatních případech by neměl být prázdný.</p>
+				</item>
+				<item>
+					<title its:translate="no">GroupDescription</title>
+					<p>Popis skupiny transakce, měl by odpovídat identifikačnímu číslu skupiny. Může obsahovat libovolné znaky kromě středníku a může být prázdný. Pro transakce bez skupiny jej ponechte prázdný.</p>
+				</item>
+				<item>
+					<title its:translate="no">GroupRGBA</title>
+					<p>Barva skupiny, měla by být ve formátu <em>rgb(R,G,B)</em>, kde <em>R</em>, <em>G</em> a <em>B</em> jsou celá čísla v rozsahu 0 až 255.</p>
+				</item>
+			</list>
+			<p>Faktura a poznámky se v souboru CSV nenachází.</p>
+		</item>
+	</list>
+</div>
+<div>
+	<title>Formáty exportu</title>
+	<p>Můžete si vybrat, zda chcete exportovat všechny informace, nebo pouze aktuální zobrazení. Pokud vyberete aktuální zobrazení, budou aktuálně zobrazené transakce exportovány ve stejném pořadí, v jakém jsou zobrazeny.</p>
+	<list>
+		<item>
+			<p its:translate="no">Portable Document Format (<file>.pdf</file>)</p>
+			<p>Soubor bude obsahovat informace o účtu, seznam transakcí a obrázky faktur. Transakce jsou barevné jako v aplikaci, ale barvy jsou upraveny tak, že jsou poloprůhledné, aby byl černý text vždy dobře viditelný. Pro exportovaný soubor můžete nastavit heslo.</p>
+		</item>
+		<item>
+			<p its:translate="no">Denaro CSV (<file>.csv</file>)</p>
+		</item>
+	</list>
+</div>
+</page>
